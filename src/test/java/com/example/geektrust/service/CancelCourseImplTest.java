@@ -28,42 +28,42 @@ public class CancelCourseImplTest {
     CommandExecutor execute2;
     CommandExecutor execute3;
 
-    private TreeMap<String , Course> courses;
-    private Map<String,Course> registrationIdCourseMap;
+    private TreeMap<String, Course> courses;
+    private Map<String, Course> registrationIdCourseMap;
     private final ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 
     @BeforeEach
     public void setUp() throws InvalidInputException, CourseFullException {
         System.setOut(new PrintStream(byteStream));
-        com1 = CommandService.getObject().getCommandUsingString("ADD-COURSE-OFFERING JAVA JAMES 15062022 1 2");
-        com2 = CommandService.getObject().getCommandUsingString("REGISTER ANDY@GMAIL.COM OFFERING-JAVA-JAMES");
-        com3 = CommandService.getObject().getCommandUsingString("CANCEL REG-COURSE-ANDY-JAVA");
+        com1 = CommandService.getCommandService().getCommandUsingString("ADD-COURSE-OFFERING JAVA JAMES 15062022 1 2");
+        com2 = CommandService.getCommandService().getCommandUsingString("REGISTER ANDY@GMAIL.COM OFFERING-JAVA-JAMES");
+        com3 = CommandService.getCommandService().getCommandUsingString("CANCEL REG-COURSE-ANDY-JAVA");
         execute1 = CommandExecutionFactory.getCommandExecutor(com1);
         execute2 = CommandExecutionFactory.getCommandExecutor(com2);
         execute3 = CommandExecutionFactory.getCommandExecutor(com3);
         courses = new TreeMap<>();
         registrationIdCourseMap = new HashMap<>();
-        execute1.executeCommand(courses , registrationIdCourseMap , com1);
-        execute2.executeCommand(courses,registrationIdCourseMap , com2);
+        execute1.executeCommand(courses, registrationIdCourseMap, com1);
+        execute2.executeCommand(courses, registrationIdCourseMap, com2);
 
     }
 
     @Test
     public void testExecute() {
-        assertDoesNotThrow(()-> execute3.executeCommand(courses, registrationIdCourseMap, com3));
+        assertDoesNotThrow(() -> execute3.executeCommand(courses, registrationIdCourseMap, com3));
     }
 
     @Test
     public void testIsCourseAllot() {
         String regId = com3.getCommandParams().get(0);
         registrationIdCourseMap.get(regId).setAllotted(true);
-        assertDoesNotThrow(()-> execute3.executeCommand(courses , registrationIdCourseMap , com3));
+        assertDoesNotThrow(() -> execute3.executeCommand(courses, registrationIdCourseMap, com3));
     }
 
     @Test
     public void testIsValidRegistration() {
         com3.getCommandParams().set(0, "xyz");
-        assertDoesNotThrow(()-> execute3.executeCommand(courses , registrationIdCourseMap , com3));
+        assertDoesNotThrow(() -> execute3.executeCommand(courses, registrationIdCourseMap, com3));
     }
 
 }

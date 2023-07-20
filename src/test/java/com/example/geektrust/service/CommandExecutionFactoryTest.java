@@ -11,19 +11,19 @@ import org.junit.jupiter.api.Test;
 
 public class CommandExecutionFactoryTest {
 
-    Command com1 ;
-    Command com2 ;
+    Command com1;
+    Command com2;
 
     @BeforeEach
     public void setUp() throws InvalidInputException {
-        com1 = CommandService.getObject().getCommandUsingString("ADD-COURSE-OFFERING JAVA JAMES 15062022 1 2");
-        com2 = CommandService.getObject().getCommandUsingString("REGISTER ANDY@GMAIL.COM OFFERING-JAVA-JAMES");
+        com1 = CommandService.getCommandService().getCommandUsingString("ADD-COURSE-OFFERING JAVA JAMES 15062022 1 2");
+        com2 = CommandService.getCommandService().getCommandUsingString("REGISTER ANDY@GMAIL.COM OFFERING-JAVA-JAMES");
     }
 
     @Test
     public void getExecutorTest() {
-       Assertions.assertTrue(CommandExecutionFactory.getCommandExecutor(com1) instanceof AddCourseImpl);
-       Assertions.assertFalse(CommandExecutionFactory.getCommandExecutor(com2) instanceof AddCourseImpl);
+        Assertions.assertTrue(CommandExecutionFactory.getCommandExecutor(com1) instanceof AddCourseImpl);
+        Assertions.assertFalse(CommandExecutionFactory.getCommandExecutor(com2) instanceof AddCourseImpl);
     }
 
 }

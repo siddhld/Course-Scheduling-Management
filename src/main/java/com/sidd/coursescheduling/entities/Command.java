@@ -10,9 +10,8 @@ public class Command {
     private final CommandOperator commandOperator;
     private final List<String> commandParams;
 
-    public Command(CommandOperator command, List<String> commandParams){
-        this.commandOperator = command;
+    public Command(CommandOperator commandOperator, List<String> commandParams){
+        this.commandOperator = commandOperator;
         this.commandParams = commandParams;
     }
-
 }

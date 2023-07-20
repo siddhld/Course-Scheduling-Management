@@ -16,18 +16,18 @@ public class CancelCourseImpl implements CommandExecutor, CancelCourseService {
         if (isValidRegistrationID(regId, regIdCourseMap)) {
             if (isCourseAllotted(regId, regIdCourseMap)) {
                 System.out.println(regId + " " + Constants.CANCEL_REJECTED);
-            } else {
-                removeRegisteredEmployee(regId, regIdCourseMap);
-                System.out.println(regId + " " + Constants.CANCEL_ACCEPTED);
+                return;
             }
+            removeRegisteredEmployee(regId, regIdCourseMap);
+            System.out.println(regId + " " + Constants.CANCEL_ACCEPTED);
         } else {
             System.out.println(regId + " " + Constants.CANCEL_REJECTED);
         }
     }
 
+
     public boolean isValidRegistrationID(String regId, Map<String, Course> regIdCourseMap) {
-        if(regIdCourseMap.get(regId) != null) return true;
-        return false;
+        return regIdCourseMap.containsKey(regId);
     }
 
     public boolean isCourseAllotted(String regId, Map<String, Course> regIdCourseMap) {

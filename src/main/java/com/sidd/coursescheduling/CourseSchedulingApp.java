@@ -6,16 +6,17 @@ import com.sidd.coursescheduling.exceptionHandle.InvalidInputException;
 import java.io.*;
 
 public class CourseSchedulingApp {
+    private static final int INPUT_FILE_LIMIT = 1;
+
     public static void main(String[] args) throws FileNotFoundException{
         try {
-            int limit = 1;
-            if (args.length != limit) {
+            if (args.length != INPUT_FILE_LIMIT) {
                 throw new FileNotFoundException("Input file not Found");
             }
             else {
                 Configuration.configure(args[0]);
             }
-        } catch (Exception ex){
+        } catch (IOException | InvalidInputException ex){
             System.out.println(ex.getMessage());
         }
     }

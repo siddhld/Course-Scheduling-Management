@@ -25,11 +25,13 @@ public class LearningManagementSystem {
     public void constructAndExecuteCommand(Command command) throws InvalidInputException {
         // On the basis of command's Operator it will create an object and pass the reference.
         CommandExecutor commandExecutor = CommandExecutionFactory.getCommandExecutor(command);
-        try{
-            // Creating a course object and filling the values on it from command's commandParam.
-            commandExecutor.executeCommand(courses, registrationIdCourseMap, command);
-        }catch(CourseFullException ex){
-            System.out.println(ex.getMessage());
+        if (commandExecutor != null) {
+            try {
+                // Creating a course object and filling the values on it from command's commandParam.
+                commandExecutor.executeCommand(courses, registrationIdCourseMap, command);
+            } catch (CourseFullException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
 }

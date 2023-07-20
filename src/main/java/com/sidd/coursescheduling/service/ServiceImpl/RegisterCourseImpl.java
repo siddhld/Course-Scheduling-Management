@@ -12,24 +12,25 @@ import com.sidd.coursescheduling.entities.Employee;
 import com.sidd.coursescheduling.service.CommandExecutor;
 import com.sidd.coursescheduling.service.RegisterCourseService;
 
-public class RegisterCourseImpl implements CommandExecutor, RegisterCourseService{
+public class RegisterCourseImpl implements CommandExecutor, RegisterCourseService {
+
+    private static final int EMAIL_INDEX = 0;
+    private static final int COURSE_ID_INDEX = 1;
 
     @Override
     public void executeCommand(TreeMap<String, Course> courses, Map<String, Course> regIdCourseMap, Command command)
             throws InvalidInputException, CourseFullException {
         String courseID = command.getCommandParams().get(1);
-        Employee employee = CreateEmployeeObject(command);
-        if (courses.containsKey(courseID)) {
-            Course course = courses.get(courseID);
-            if (!course.isAllotted() || course.isCancelled())
-                register(course, employee, regIdCourseMap);
-        } else {
-            System.out.println("INPUT_DATA_ERROR");
-        }
+        if (!courses.containsKey(courseID)) throw new InvalidInputException("INPUT_DATA_ERROR");
 
+        Course course = courses.get(courseID);
+        if (!course.isAllotted() && !course.isCancelled()) {
+            Employee employee = CreateEmployeeObject(command);
+            register(course, employee, regIdCourseMap);
+        }
     }
 
-     public void register(Course course, Employee employee, Map<String, Course> regIdCourseMap) throws CourseFullException {
+    public void register(Course course, Employee employee, Map<String, Course> regIdCourseMap) throws CourseFullException {
         if (course.getRegisteredEmployees().size() != course.getMaxLimit()) {
             registerEmployeeToCourse(employee, course, regIdCourseMap);
         } else {
@@ -44,7 +45,8 @@ public class RegisterCourseImpl implements CommandExecutor, RegisterCourseServic
     }
 
     public Employee CreateEmployeeObject(Command command) throws InvalidInputException {
-        //                  Passing Email in Constructor
-        return new Employee(command.getCommandParams().get(0));
+        String email = command.getCommandParams().get(EMAIL_INDEX);
+        //                  Passing Email in Employee Constructor
+        return new Employee(email);
     }
 }

@@ -1,6 +1,7 @@
 package com.sidd.coursescheduling.entities;
 
 import java.util.*;
+
 import lombok.Data;
 
 
@@ -14,9 +15,7 @@ public class Course {
     private final int maxLimit;
     private boolean isAllotted;
     private boolean isCancelled;
-
-    private final Map<String , Employee> registeredEmployees;
-
+    private final Map<String, Employee> registeredEmployees;
 
     public Course(String courseID, String courseName, String instructor, Date date, int minLimit, int maxLimit, boolean isAllotted, boolean isCancelled) {
         registeredEmployees = new TreeMap<>();
@@ -31,9 +30,9 @@ public class Course {
     }
 
 
-    public String addEmployee(Employee e){
-        String registrationID = "REG-COURSE-"+e.getName()+"-"+this.courseName;
-        this.registeredEmployees.put(registrationID , e);
+    public String addEmployee(Employee employee) {
+        String registrationID = "REG-COURSE-" + employee.getName() + "-" + this.courseName;
+        this.registeredEmployees.put(registrationID, employee);
         return registrationID;
     }
 

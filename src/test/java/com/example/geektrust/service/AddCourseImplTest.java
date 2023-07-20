@@ -22,8 +22,8 @@ public class AddCourseImplTest {
 
     Command com1;
     CommandExecutor execute;
-    private  TreeMap<String, Course> courses;
-    private  Map<String, Course> registrationIdCourseMap;
+    private TreeMap<String, Course> courses;
+    private Map<String, Course> registrationIdCourseMap;
     private final ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 
     @BeforeEach
@@ -31,19 +31,19 @@ public class AddCourseImplTest {
         System.setOut(new PrintStream(byteStream));
         courses = new TreeMap<>();
         registrationIdCourseMap = new HashMap<>();
-        com1 = CommandService.getObject().getCommandUsingString("ADD-COURSE-OFFERING JAVA JAMES 15062022 1 2");
+        com1 = CommandService.getCommandService().getCommandUsingString("ADD-COURSE-OFFERING JAVA JAMES 15062022 1 2");
         execute = CommandExecutionFactory.getCommandExecutor(com1);
     }
 
     @Test
-    public void testExecute(){
-        assertDoesNotThrow( ()-> execute.executeCommand(courses, registrationIdCourseMap, com1));
+    public void testExecute() {
+        assertDoesNotThrow(() -> execute.executeCommand(courses, registrationIdCourseMap, com1));
     }
 
     @Test
-    public void testConstructCourse(){
+    public void testConstructCourse() {
         com1.getCommandParams().set(3, null);
-        assertThrows(InvalidInputException.class, ()-> execute.executeCommand(courses, registrationIdCourseMap, com1));
+        assertThrows(InvalidInputException.class, () -> execute.executeCommand(courses, registrationIdCourseMap, com1));
     }
 
     @Test

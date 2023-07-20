@@ -13,7 +13,7 @@ public class CommandService {
     static CommandService commandService = null;
 
     // Creating a Singleton Object
-    public static CommandService getObject() {
+    public static CommandService getCommandService() {
         if (commandService == null) {
             commandService = new CommandService();
         }
@@ -21,10 +21,13 @@ public class CommandService {
     }
 
     private void checkCommand(CommandOperator commandOperator, Command command) throws InvalidInputException {
-        if (commandOperator.getArguments() != command.getCommandParams().size()) {
+        int expectedArgs = commandOperator.getNumArgs();
+        int actualArgs = command.getCommandParams().size();
+        if (expectedArgs != actualArgs) {
             throw new InvalidInputException("INPUT_DATA_ERROR");
         }
     }
+
 
     public Command getCommandUsingString(String line) throws InvalidInputException {
         try {

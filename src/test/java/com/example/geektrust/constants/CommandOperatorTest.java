@@ -20,7 +20,7 @@ public class CommandOperatorTest {
     }
     @Test
     public void testGetNumberOfArguments() {
-        assertEquals(Optional.of(CommandOperator.REGISTER.getArguments()).get(),registerValue);
-        assertEquals(Optional.of(CommandOperator.ADD_COURSE_OFFERING.getArguments()).get(),courseOfferingValue);
+        assertEquals(Optional.of(CommandOperator.REGISTER.getNumArgs()).get(),registerValue);
+        assertEquals(Optional.of(CommandOperator.ADD_COURSE_OFFERING.getNumArgs()).get(),courseOfferingValue);
     }
 }

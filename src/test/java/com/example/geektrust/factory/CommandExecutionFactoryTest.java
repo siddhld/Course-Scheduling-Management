@@ -10,7 +10,7 @@ import com.sidd.coursescheduling.service.ServiceImpl.RegisterCourseImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.*;
 
 public class CommandExecutionFactoryTest {
 

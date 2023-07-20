@@ -18,21 +18,15 @@ public class AllotCourseImpl implements CommandExecutor, AllotCourseService {
             throws InvalidInputException {
         String courseId = command.getCommandParams().get(0);
         Course course = courses.get(courseId);
-        if (course != null) {
-            setCourse(course);
-        } else {
+        if (course == null) {
             throw new InvalidInputException("INPUT_DATA_ERROR");
         }
-    }
-
-    public void setCourse(Course course){
         if (course.getRegisteredEmployees().size() > course.getMinLimit()) {
             course.setAllotted(true);
-            printCourse(course);
         } else {
             course.setCancelled(true);
-            printCourse(course);
         }
+        printCourse(course);
     }
 
     public void printCourse(Course course) {
